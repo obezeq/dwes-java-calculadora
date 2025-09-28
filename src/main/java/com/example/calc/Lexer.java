@@ -15,7 +15,7 @@ public final class Lexer {
 
     public List<Token> lex() {
         List<Token> tokens = new ArrayList<>();
-        while (!eof()) {
+        while (hasNext()) {
             char c = peek();
             if (Character.isWhitespace(c)) { i++; continue; }
             int start = i;
@@ -45,7 +45,7 @@ public final class Lexer {
     private Token number() {
         int start = i;
         boolean seenDot = false;
-        while (!eof()) {
+        while (hasNext()) {
             char c = peek();
             if (c == '.') {
                 if (seenDot) break;
@@ -62,11 +62,11 @@ public final class Lexer {
 
     private Token ident() {
         int start = i;
-        while (!eof() && (Character.isLetterOrDigit(peek()) || peek() == '_')) i++;
+        while (hasNext() && (Character.isLetterOrDigit(peek()) || peek() == '_')) i++;
         String name = src.substring(start, i);
         return new Token(TokenType.IDENT, name, start);
     }
 
-    private boolean eof() { return i >= n; }
+    private boolean hasNext() { return i < n; }
     private char peek() { return src.charAt(i); }
 }
