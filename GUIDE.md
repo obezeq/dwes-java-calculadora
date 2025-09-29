@@ -1,7 +1,7 @@
 # Calc21 — Guía de lectura y diseño
 
 ## [§1] Objetivo
-Calculadora en Java con `+ - * / ^`, paréntesis y `sin(x)`, `cos(x)`. Enseña buenas prácticas y Java 17–21.
+Calculadora en Java con `+ - * / ^`, paréntesis y funciones `sin(x)`, `cos(x)`, `tan(x)`, `sqrt(x)`, `ln(x)`, `log10(x)`. Enseña buenas prácticas y Java 17–21.
 
 ## [§2] Arquitectura por fases
 - **Lexer** → tokens.
