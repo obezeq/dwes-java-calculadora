@@ -81,13 +81,17 @@ public final class Parser {
             expect(RPAREN, "Se esperaba ')'");
             return inside;
         }
-        throw error("Token inesperado: " + peek().type() + " en pos " + peek().position());
+        throw error("Se esperaba un número, función o '(' pero se encontró: " + peek().type() + " en pos " + peek().position());
     }
 
     private boolean match(TokenType t) { if (check(t)) { i++; return true; } return false; }
     private boolean check(TokenType t) { return peek().type() == t; }
     private Token peek() { return ts.get(i); }
     private Token prev() { return ts.get(i-1); }
-    private void expect(TokenType t, String msg) { if (!match(t)) throw error(msg + " (pos " + peek().position() + ")"); }
+    private void expect(TokenType t, String msg) {
+        if (!match(t)) {
+            throw error(msg + ". Se encontró: " + peek().type() + " en pos " + peek().position());
+        }
+    }
     private IllegalArgumentException error(String msg) { return new IllegalArgumentException(msg); }
 }

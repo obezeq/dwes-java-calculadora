@@ -58,6 +58,8 @@ public final class Lexer {
         }
         String lex = src.substring(start, i);
         if (lex.equals(".")) throw new IllegalArgumentException("Número inválido en pos " + start);
+        if (lex.endsWith(".")) throw new IllegalArgumentException("Número mal formado: termina con punto decimal en pos " + start);
+        if (lex.startsWith(".")) throw new IllegalArgumentException("Númeor mal formado: compienza con un punto decimal (usa 0." + lex.substring(1) + ") en pos " + start);
         return new Token(TokenType.NUMBER, lex, start);
     }
 
