@@ -25,7 +25,20 @@ public final class Evaluator {
                         }
                         yield l / r;
                     }
-                    case '^' -> Math.pow(l, r);
+                    case '^' -> {
+
+                        double result = Math.pow(l, r);
+
+                        if (Double.isNaN(result)) {
+                            throw new IllegalArgumentException("Operación inválida " + l + " ^ " + r + " (dominio matemático invalido)");
+                        }
+
+                        if (Double.isInfinite(result)) {
+                            throw new IllegalArgumentException("Resultado de " + l + " ^ " + r + " excede el rango numérico)");
+                        }
+
+                        yield result;
+                    }
                     default -> throw new IllegalStateException("Operador no soportado: " + b.op());
                 };
             }
