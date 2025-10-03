@@ -25,15 +25,50 @@ public final class Evaluator {
                 };
             }
             case Call c -> {
-                double x = eval(c.arg());
+
                 yield switch (c.name()) {
-                    case "sin" -> Math.sin(x);
-                    case "cos" -> Math.cos(x);
-                    case "tan" -> Math.tan(x);
-                    case "ln" -> Math.log(x);
-                    case "log" -> Math.log10(x);
-                    default -> throw new IllegalArgumentException("Función no soportada: " + c.name());
+
+                    case "sin", "cos", "tan", "ln" -> {
+                        if (c.args().size() != 1) {
+                            throw new IllegalArgumentException(c.name() + " requiere exactamente 1 argumento");
+                        }
+
+                        double x = eval(c.args().getFirst());
+                        yield switch (c.name()) {
+                            case "sin" -> Math.sin(x);
+                            case "cos" -> Math.cos(x);
+                            case "tan" -> Math.tan(x);
+                            case "ln" -> Math.log(x);
+                            default -> throw new AssertionError();
+                        };
+
+                    }
+
+                    case "log" -> {
+
+                        if (c.args().size() == 1) {
+
+                            double x = eval(c.args().getFirst());
+                            yield Math.log10(x);
+
+                        } else if(c.args().size() == 2) {
+
+                            double base = eval(c.args().getFirst());
+                            double x = eval(c.args().get(1));
+
+                            yield Math.log(x) / Math.log(base);
+
+                        } else {
+
+                            throw new IllegalArgumentException(c.name() + " requiere 1 o 2 argumentos solamente");
+
+                        }
+
+                    }
+
+                    default -> throw new IllegalStateException("Función no soportada: " + c.name());
                 };
+
             }
         };
     }
