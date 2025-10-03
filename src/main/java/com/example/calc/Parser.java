@@ -1,5 +1,6 @@
 package com.example.calc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.calc.TokenType.*;
@@ -62,10 +63,19 @@ public final class Parser {
         if (match(IDENT)) {
             String name = prev().lexeme();
             expect(LPAREN, "Se esperaba '(' tras función");
-            Expr arg = expr();
-            expect(RPAREN, "Se esperaba ')' tras argumento");
-            return new Call(name, arg);
+
+            List<Expr> args = new ArrayList<>();
+            if (!check(RPAREN)) {
+                args.add(expr());
+                while (match(COMMA)) {
+                    args.add(expr());
+                }
+            }
+
+            expect(RPAREN, "Se esperaba ')' tras argumentos");
+            return new Call(name, args);
         }
+
         if (match(LPAREN)) {
             Expr inside = expr();
             expect(RPAREN, "Se esperaba ')'");

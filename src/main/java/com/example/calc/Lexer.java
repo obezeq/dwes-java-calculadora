@@ -27,6 +27,7 @@ public final class Lexer {
                 case '^' -> { i++; tokens.add(new Token(TokenType.CARET, "^", start)); }
                 case '(' -> { i++; tokens.add(new Token(TokenType.LPAREN, "(", start)); }
                 case ')' -> { i++; tokens.add(new Token(TokenType.RPAREN, ")", start)); }
+                case ',' -> { i++; tokens.add(new Token(TokenType.COMMA, ",", start)); }
                 default -> {
                     if (Character.isDigit(c) || c == '.') {
                         tokens.add(number());
