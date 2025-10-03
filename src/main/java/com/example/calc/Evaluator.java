@@ -19,7 +19,12 @@ public final class Evaluator {
                     case '+' -> l + r;
                     case '-' -> l - r;
                     case '*' -> l * r;
-                    case '/' -> l / r;
+                    case '/' -> {
+                        if (r == 0.0) {
+                            throw new IllegalArgumentException("Division por cero (¡no mates a un gato!)");
+                        }
+                        yield l / r;
+                    }
                     case '^' -> Math.pow(l, r);
                     default -> throw new IllegalStateException("Operador no soportado: " + b.op());
                 };
