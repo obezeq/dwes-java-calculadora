@@ -30,6 +30,8 @@ public final class Evaluator {
                     case "sin" -> Math.sin(x);
                     case "cos" -> Math.cos(x);
                     case "tan" -> Math.tan(x);
+                    case "ln" -> Math.log(x);
+                    case "log" -> Math.log10(x);
                     default -> throw new IllegalArgumentException("Función no soportada: " + c.name());
                 };
             }
