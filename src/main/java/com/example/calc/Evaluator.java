@@ -43,7 +43,14 @@ public final class Evaluator {
                             case "sin" -> Math.sin(x);
                             case "cos" -> Math.cos(x);
                             case "tan" -> Math.tan(x);
-                            case "ln" -> Math.log(x);
+                            case "ln" -> {
+
+                                if (x <= 0) {
+                                    throw new IllegalArgumentException("ln requiere un argumento positivo (recibido: " + x + ")");
+                                }
+
+                                yield Math.log(x);
+                            }
                             default -> throw new AssertionError();
                         };
 
@@ -54,12 +61,24 @@ public final class Evaluator {
                         if (c.args().size() == 1) {
 
                             double x = eval(c.args().getFirst());
+
+                            if (x <= 0) {
+                                throw new IllegalArgumentException("log requiere un argumento positivo (recibido: " + x + ")");
+                            }
+
                             yield Math.log10(x);
 
                         } else if(c.args().size() == 2) {
 
                             double base = eval(c.args().getFirst());
                             double x = eval(c.args().get(1));
+
+                            if (base <= 0 || base == 1) {
+                                throw new IllegalArgumentException("La base del logaritmo debe de ser positiva y distinta de 1 (recibido: " + base + ")");
+                            }
+                            if (x <= 0) {
+                                throw new IllegalArgumentException("El argumento del algoritmo debe de ser positivo (recibido: " + x + ")");
+                            }
 
                             yield Math.log(x) / Math.log(base);
 
