@@ -17,6 +17,7 @@ public final class Evaluator {
                 double r = eval(b.right());
                 yield switch (b.op()) {
                     case "+" -> l + r;
+                    case "%" -> l % r;
                     case "-" -> l - r;
                     case "*" -> l * r;
                     case "/" -> l / r;

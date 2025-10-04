@@ -23,6 +23,7 @@ public final class Lexer {
                 case '+' -> { i++; tokens.add(new Token(TokenType.PLUS, "+", start)); }
                 case '-' -> { i++; tokens.add(new Token(TokenType.MINUS, "-", start)); }
                 case '*' -> { i++; tokens.add(new Token(TokenType.STAR, "*", start)); }
+                case '%' -> { i++; tokens.add(new Token(TokenType.MODULO, "%", start)); }
                 case '/' -> {
                     i++;
                     if (hasNext() && peek() == '/') {

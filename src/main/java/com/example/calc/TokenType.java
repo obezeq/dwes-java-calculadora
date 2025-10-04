@@ -4,6 +4,6 @@ public enum TokenType {
     NUMBER, IDENT,
     PLUS, MINUS, STAR, SLASH, DOUBLE_SLASH,
     CARET,
-    LPAREN, RPAREN,
+    LPAREN, RPAREN,MODULO,
     EOF
 }
