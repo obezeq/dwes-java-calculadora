@@ -10,17 +10,18 @@ public final class Evaluator {
             case NumberLit n -> n.value();
             case Unary u -> {
                 double v = eval(u.expr());
-                yield (u.op() == '-') ? -v : +v;
+                yield u.op().equals("-") ? -v : +v;
             }
             case Binary b -> {
                 double l = eval(b.left());
                 double r = eval(b.right());
                 yield switch (b.op()) {
-                    case '+' -> l + r;
-                    case '-' -> l - r;
-                    case '*' -> l * r;
-                    case '/' -> l / r;
-                    case '^' -> Math.pow(l, r);
+                    case "+" -> l + r;
+                    case "-" -> l - r;
+                    case "*" -> l * r;
+                    case "/" -> l / r;
+                    case "//" -> Math.floor(l / r);
+                    case "^" -> Math.pow(l, r);
                     default -> throw new IllegalStateException("Operador no soportado: " + b.op());
                 };
             }

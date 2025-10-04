@@ -20,7 +20,7 @@ public final class Parser {
     private Expr expr() {
         Expr left = term();
         while (match(PLUS) || match(MINUS)) {
-            char op = prev().lexeme().charAt(0);
+            String op = prev().lexeme();
             Expr right = term();
             left = new Binary(left, op, right);
         }
@@ -29,8 +29,8 @@ public final class Parser {
 
     private Expr term() {
         Expr left = factor();
-        while (match(STAR) || match(SLASH)) {
-            char op = prev().lexeme().charAt(0);
+        while (match(STAR) || match(SLASH) || match(DOUBLE_SLASH)) {
+            String op = prev().lexeme();
             Expr right = factor();
             left = new Binary(left, op, right);
         }
@@ -42,15 +42,16 @@ public final class Parser {
     private Expr power() {
         Expr base = unary();
         if (match(CARET)) {
+            String op = prev().lexeme();
             Expr exponent = power(); // asociatividad a derecha
-            return new Binary(base, '^', exponent);
+            return new Binary(base, op, exponent);
         }
         return base;
     }
 
     private Expr unary() {
         if (match(PLUS) || match(MINUS)) {
-            char op = prev().lexeme().charAt(0);
+            String op = prev().lexeme();
             Expr right = unary();
             return new Unary(op, right);
         }
