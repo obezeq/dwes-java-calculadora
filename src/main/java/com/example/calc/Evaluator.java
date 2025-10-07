@@ -46,7 +46,7 @@ public final class Evaluator {
 
                 yield switch (c.name()) {
 
-                    case "sin", "cos", "tan", "ln" -> {
+                    case "sin", "cos", "tan", "ln", "sqrt" -> {
                         if (c.args().size() != 1) {
                             throw new IllegalArgumentException(c.name() + " requiere exactamente 1 argumento");
                         }
@@ -56,6 +56,7 @@ public final class Evaluator {
                             case "sin" -> Math.sin(x);
                             case "cos" -> Math.cos(x);
                             case "tan" -> Math.tan(x);
+                            case "sqrt" -> Math.sqrt(x);
                             case "ln" -> {
 
                                 if (x <= 0) {
